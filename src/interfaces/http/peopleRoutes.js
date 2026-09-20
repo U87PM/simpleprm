@@ -8,9 +8,16 @@ const router = app.Router();
 const SqlitePersonRepository = require(
     "../../infrastructure/repositories/SqlitePersonRepository");
 const AddPerson = require("../../application/AddPerson");
+const SearchPeople = require("../../application/SearchPeople");
 
 const personRepository = new SqlitePersonRepository();
 const addPerson = new AddPerson(personRepository);
+const searchPeople = new SearchPeople(personRepository);
+
+router.get("/search", (req, res) => {
+    const results = searchPeople.execute({query: req.query.q});
+    res.json(results);
+});
 
 // Return all people in database
 // Route GET /api/people
