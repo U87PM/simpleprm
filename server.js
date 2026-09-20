@@ -6,10 +6,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const peopleRoutes = require("./src/interfaces/http/peopleRoutes");
-const relationshipRoutes = require("./src/interfaces/http/relationshipRoutes");
+// const relationshipRoutes = require("./src/interfaces/http/relationshipRoutes");
 
 app.use("/api/people", peopleRoutes);
-app.use("/api/relationships", relationshipRoutes);
+// app.use("/api/relationships", relationshipRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {

@@ -6,12 +6,13 @@ const app = require("express");
 const router = app.Router();
 
 const SqlitePersonRepository = require(
-    "../../infrastructure/repositories/PersonRepository");
+    "../../infrastructure/repositories/SqlitePersonRepository");
 const AddPerson = require("../../application/AddPerson");
 
 const personRepository = new SqlitePersonRepository();
 const addPerson = new AddPerson(personRepository);
 
+// Return all people in database
 // Route GET /api/people
 router.get("/", (req, res) => {
     const people = personRepository.findAll();
@@ -20,13 +21,14 @@ router.get("/", (req, res) => {
     res.json(people);
 });
 
+// Add person to database
 // Route POST /api/people
 router.post("/", (req, res) => {
     try {
         const result = addPerson.execute(req.body);
         res.json(result);
     } catch(e) {
-        res.status(400).json({error: e});
+        res.status(400).json({error: e.message});
     }
 });
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Person</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Add Person</h2>
+    
+    <fieldset>
+        <label>Имя</label><br>
+        <input type="text" id="firstName"><br>
+        <label>Фамилия</label><br>
+        <input type="text" id="lastName"><br>
+        <label>Почта</label><br>
+        <input type="email" id="email"><br>
+        <label>Телефон</label><br>
+        <input type="tel" id="phone"><br>
+        <label>День Рождения</label><br>
+        <input type="date" id="birthday"><br>
+
+
+        <button onclick="addPerson()">Add</button>
+    </fieldset>
+
+    <script>
+        function addPerson() {
+            fetch("/api/people", {
+                method: "POST",
+                headers: { "Content-Type": "application/json"},
+                body: JSON.stringify({
+                    firstName: document.getElementById("firstName").value,
+                    lastName: document.getElementById("lastName").value,
+                    email: document.getElementById("email").value,
+                    phone: document.getElementById("phone").value,
+                    birthday: document.getElementById("birthday").value
+                })
+            });
+        }
+    </script>
+</body>
+</html>
