@@ -15,6 +15,7 @@ class SqlitePersonRepository extends PersonRepository {
             "SELECT * FROM people"
         ).all();
         //array.map(function(currentValue, index, arr), thisValue)
+        // calls function for every element & goes into new array
         return rows.map(r => new Person(r.id, r.first_name, r.last_name, r.group_name, r.email, r.phone, r.birthday));
     }
 }

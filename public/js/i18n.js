@@ -1,5 +1,5 @@
 async function loadLanguage(lang) {
-    const res = await fetch(`./locales/${lang}.json`);
+    const res = await fetch(`../locales/${lang}.json`);
     const translations = await res.json();
 
     document.querySelectorAll("[data-i18n]").forEach(e => {

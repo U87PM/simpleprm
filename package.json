@@ -10,5 +10,9 @@
   "dependencies": {
     "better-sqlite3": "^13.0.3",
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "d3": "^7.9.0"
   }
 }

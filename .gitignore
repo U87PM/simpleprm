@@ -1,1 +1,4 @@
 node_modules/
+people.db
+.env
+*.log
