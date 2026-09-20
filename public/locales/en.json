@@ -1,0 +1,9 @@
+{
+    "addHtmlTitle": "Add to database",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "phone": "Phone:",
+    "birthday": "Birthday",
+    "add": "Add"
+}

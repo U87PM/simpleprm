@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Add Person</title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Person</title>
 </head>
 <body>
-    <h2>Add Person</h2>
+    <h2 data-i18n="addHtmlTitle">Add Person</h2>
     
     <fieldset>
-        <label>Имя</label><br>
+        <label data-i18n="firstName">First mame</label><br>
         <input type="text" id="firstName"><br>
-        <label>Фамилия</label><br>
+        <label data-i18n="lastName">Last name</label><br>
         <input type="text" id="lastName"><br>
-        <label>Почта</label><br>
+        <label data-i18n="email"="">Email</label><br>
         <input type="email" id="email"><br>
-        <label>Телефон</label><br>
+        <label data-i18n="phone">Phone</label><br>
         <input type="tel" id="phone"><br>
-        <label>День Рождения</label><br>
+        <label data-i18n="birthday">Birthday</label><br>
         <input type="date" id="birthday"><br>
 
 
-        <button onclick="addPerson()">Add</button>
+        <button data-i18n="add" onclick="addPerson()">Add</button>
     </fieldset>
 
     <script>
@@ -38,5 +40,6 @@
             });
         }
     </script>
+    <script src="i18n.js"></script>
 </body>
 </html>
