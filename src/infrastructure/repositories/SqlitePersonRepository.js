@@ -10,6 +10,23 @@ class SqlitePersonRepository extends PersonRepository {
         return result.lastInsertRowid;
     }
 
+    search(query, limit) {
+        //prep query, remove all (")
+        var ftsQuery = query.replace(/"/g, "");
+        ftsQuery = `"${ftsQuery}"*`;
+
+        const rows = db.prepare(`
+            SELECT people.*                                 -- return columns from the 'people' table only
+            FROM people_fts                                 -- work with
+            JOIN people ON people.id = people_fts.rowid     -- match rows from both on the id property. (A, [id), B]
+            WHERE people_fts MATCH ?                        -- searches all indexed columns rather than smth like people_fts.name
+            ORDER BY rank
+            LIMIT ?
+        `).all(ftsQuery, limit); //fills the placeholders (?)
+        return rows.map(r => new Person(r.id, r.first_name, r.last_name, r.group_name, r.email, r.phone, r.birthday));
+    }
+
+
     findAll() {
         const rows = db.prepare(
             "SELECT * FROM people"

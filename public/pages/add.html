@@ -5,25 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Add Person</title>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            max-width: 420px; 
+            margin-top: 40px;
+            margin-left: 40px;
+        }
+        fieldset {
+            margin-bottom: 24px;
+            
+        }
+        label {
+            /* display: block; */
+            margin-top: 8px;
+        }
+        input, select { 
+            width: 100%;
+            padding: 6px;
+            margin-top: 2px;
+            box-sizing: border-box;
+        }
+        button { 
+            margin-top: 12px; 
+            padding: 8px 16px; 
+        }
+    
+        .autocomplete-wrapper { position: relative; }
+
+    </style>
 </head>
 <body>
     <h2 data-i18n="addHtmlTitle"></h2>
     
     <fieldset>
-        <label data-i18n="firstName"></label><br>
-        <input type="text" id="firstName"><br>
-        <label data-i18n="lastName"></label><br>
-        <input type="text" id="lastName"><br>
-        <label data-i18n="email"=""></label><br>
-        <input type="email" id="email"><br>
-        <label data-i18n="phone"></label><br>
-        <input type="tel" id="phone"><br>
-        <label data-i18n="birthday"></label><br>
-        <input type="date" id="birthday"><br>
+        <label data-i18n="firstName"></label>
+        <input type="text" id="firstName" autocomplete="given-name">
+        <label data-i18n="lastName"></label>
+        <input type="text" id="lastName" autocomplete="family-name">
+        <label data-i18n="email"></label>
+        <input type="email" id="email" autocomplete="email">
+        <label data-i18n="phone"></label>
+        <input type="tel" id="phone" autocomplete="tel">
+        <label data-i18n="birthday"></label>
+        <input type="date" id="birthday" autocomplete="bday">
 
-
-        <button data-i18n="add" onclick="addPerson()"></button>
     </fieldset>
+
+    <fieldset>
+        <label>Person</label>
+        <div class="autocomplete-wrapper">
+            <input id="relPersonInput" autocomplete="off" placeholder="Start typing a name...">
+            <ul id="relSuggestions" class="suggestions" style="display:none"></ul>
+        </div>
+        <label>Relationship type</label>
+        <select id="relType">
+            <option value="friend">Friend</option>
+            <option value="family">Family</option>
+            <option value="colleague">Colleague</option>
+        </select>
+        <button type="button" onclick="addPendingRelationship()">Add relationship</button>
+    
+        <ul id="pendingList" class="pending-list"></ul>
+    </fieldset>
+
+    <button data-i18n="add" onclick="addPerson()"></button>
 
     <script>
         function addPerson() {
