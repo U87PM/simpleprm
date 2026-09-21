@@ -1,11 +1,37 @@
 <!DOCTYPE html>
-<div id="container"></div>
+<html>
+<head>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+    }
+    .page-header { 
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      z-index: 10;
+    }
+    .page-header h2 {
+        margin: 0 0 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h2 data-i18n="graphHtmlTitle"></h2>
+    <a data-i18n="addPageLink" href="./add.html"></a>
+  </div>
+  <div id="container"></div>
 
-<script type="importmap">
-{
-  "imports": {
-    "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+  <script type="importmap">
+  {
+    "imports": {
+      "d3": "https://cdn.jsdelivr.net/npm/d3@7/+esm"
+    }
   }
-}
-</script>
-<script type="module" src="../js/graph.js"></script>
+  </script>
+  <script type="module" src="/js/graph.js"></script>
+  <script src="/js/i18n.js"></script>
+</body>
+</html>

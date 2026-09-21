@@ -1,9 +1,12 @@
 {
     "addHtmlTitle": "Добавить в базу данных",
+    "graphHtmlTitle": "График связей",
     "firstName": "Имя",
     "lastName": "Фамилия",
     "email": "Почта",
     "phone": "Телефон:",
     "birthday": "День Рождения",
-    "add": "Добавить"
+    "add": "Добавить",
+    "graphPageLink": "График",
+    "addPageLink": "Добавить людей"
 }

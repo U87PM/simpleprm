@@ -2,8 +2,11 @@ const express = require("express");
 
 const app = express();
 app.use(express.json());
+
 //static - delivered to client wout server modification (from the public folder)
-app.use(express.static("public"));
+app.use(express.static('public/pages'));
+app.use('/js', express.static('public/js'));
+app.use('/locales', express.static('public/locales'));
 
 const peopleRoutes = require("./src/interfaces/http/peopleRoutes");
 const relationshipRoutes = require("./src/interfaces/http/relationshipRoutes");

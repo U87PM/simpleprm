@@ -12,6 +12,10 @@
             margin-top: 40px;
             margin-left: 40px;
         }
+        .page-header h2 {
+            margin: 0 0 4px 0;
+        }
+
         fieldset {
             margin-bottom: 24px;
             
@@ -36,56 +40,61 @@
     </style>
 </head>
 <body>
-    <h2 data-i18n="addHtmlTitle"></h2>
-    
-    <fieldset>
-        <label data-i18n="firstName"></label>
-        <input type="text" id="firstName" autocomplete="given-name">
-        <label data-i18n="lastName"></label>
-        <input type="text" id="lastName" autocomplete="family-name">
-        <label data-i18n="email"></label>
-        <input type="email" id="email" autocomplete="email">
-        <label data-i18n="phone"></label>
-        <input type="tel" id="phone" autocomplete="tel">
-        <label data-i18n="birthday"></label>
-        <input type="date" id="birthday" autocomplete="bday">
+    <div class="page-header">
+        <h2 data-i18n="addHtmlTitle"></h2>
+        <a data-i18n="graphPageLink" href="./graph.html"></a>
+    </div>
+    <div>
+        <fieldset>
+            <label data-i18n="firstName"></label>
+            <input type="text" id="firstName" autocomplete="given-name">
+            <label data-i18n="lastName"></label>
+            <input type="text" id="lastName" autocomplete="family-name">
+            <label data-i18n="email"></label>
+            <input type="email" id="email" autocomplete="email">
+            <label data-i18n="phone"></label>
+            <input type="tel" id="phone" autocomplete="tel">
+            <label data-i18n="birthday"></label>
+            <input type="date" id="birthday" autocomplete="bday">
 
-    </fieldset>
+        </fieldset>
 
-    <fieldset>
-        <label>Person</label>
-        <div class="autocomplete-wrapper">
-            <input id="relPersonInput" autocomplete="off" placeholder="Start typing a name...">
-            <ul id="relSuggestions" class="suggestions" style="display:none"></ul>
-        </div>
-        <label>Relationship type</label>
-        <select id="relType">
-            <option value="friend">Friend</option>
-            <option value="family">Family</option>
-            <option value="colleague">Colleague</option>
-        </select>
-        <button type="button" onclick="addPendingRelationship()">Add relationship</button>
-    
-        <ul id="pendingList" class="pending-list"></ul>
-    </fieldset>
+        <fieldset>
+            <label>Person</label>
+            <div class="autocomplete-wrapper">
+                <input id="relPersonInput" autocomplete="off" placeholder="Start typing a name...">
+                <ul id="relSuggestions" class="suggestions" style="display:none"></ul>
+            </div>
+            <label>Relationship type</label>
+            <select id="relType">
+                <option value="friend">Friend</option>
+                <option value="family">Family</option>
+                <option value="colleague">Colleague</option>
+            </select>
+            <button type="button" onclick="addPendingRelationship()">Add relationship</button>
+        
+            <ul id="pendingList" class="pending-list"></ul>
+        </fieldset>
 
-    <button data-i18n="add" onclick="addPerson()"></button>
+        <button data-i18n="add" onclick="addPerson()"></button>
+    </div>
 
     <script>
-        function addPerson() {
-            fetch("/api/people", {
-                method: "POST",
-                headers: { "Content-Type": "application/json"},
-                body: JSON.stringify({
-                    firstName: document.getElementById("firstName").value,
-                    lastName: document.getElementById("lastName").value,
-                    email: document.getElementById("email").value,
-                    phone: document.getElementById("phone").value,
-                    birthday: document.getElementById("birthday").value
-                })
-            });
-        }
+        // function addPerson() {
+        //     fetch("/api/people", {
+        //         method: "POST",
+        //         headers: { "Content-Type": "application/json"},
+        //         body: JSON.stringify({
+        //             firstName: document.getElementById("firstName").value,
+        //             lastName: document.getElementById("lastName").value,
+        //             email: document.getElementById("email").value,
+        //             phone: document.getElementById("phone").value,
+        //             birthday: document.getElementById("birthday").value
+        //         })
+        //     });
+        // }
     </script>
-    <script src="../js/i18n.js"></script>
+    <script src="/js/add.js"></script>
+    <script src="/js/i18n.js"></script>
 </body>
 </html>

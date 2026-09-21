@@ -1,9 +1,12 @@
 {
     "addHtmlTitle": "Add to database",
+    "graphHtmlTitle": "Connections graph",
     "firstName": "First name",
     "lastName": "Last name",
     "email": "Email",
     "phone": "Phone:",
     "birthday": "Birthday",
-    "add": "Add"
+    "add": "Add",
+    "graphPageLink": "Graph",
+    "addPageLink": "Add people"
 }

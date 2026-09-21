@@ -120,7 +120,7 @@ async function main() {
     const nodes = await fetchData();
     const {svg} = initSvg();
 
-    //initNodePositions(nodes, width, height);
+    initNodePositions(nodes, window.innerWidth, window.innerHeight);
 
     //draw nodes
     const node = drawNodes(svg, nodes);

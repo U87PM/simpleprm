@@ -3,9 +3,10 @@ const router = app.Router();
 
 const SqliteRelatioshipRepository = require("../../infrastructure/repositories/SqliteRelationshipRepository");
 const AddRelationship = require("../../application/AddRelationship");
+const PersonRepository = require("../../domain/person/PersonRepository");
 
 const relationshipRepository = new SqliteRelatioshipRepository();
-const addRelationship = new AddRelationship();
+const addRelationship = new AddRelationship(relationshipRepository, PersonRepository);
 
 router.get("/", (req, res) => {
     const relationships = relationshipRepository.findAll();
