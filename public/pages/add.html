@@ -17,8 +17,7 @@
         }
 
         fieldset {
-            margin-bottom: 24px;
-            
+            margin-bottom: 2px;
         }
         label {
             /* display: block; */
@@ -67,16 +66,13 @@
             </div>
             <label data-i18n="relationshipType"></label>
             <select id="relType">
-                <option value="friend">Friend</option>
-                <option value="family">Family</option>
-                <option value="colleague">Colleague</option>
             </select>
-            <button data-i18n="add" type="button" onclick="addPendingRelationship()"></button>
+            <button data-i18n="addRelationship" type="button" onclick="addPendingRelationship()"></button>
         
             <ul id="pendingList" class="pending-list"></ul>
         </fieldset>
 
-        <button data-i18n="add" onclick="addPerson()"></button>
+        <button data-i18n="addPerson" onclick="addPerson()"></button>
     </div>
 
     <script src="/js/add.js"></script>

@@ -12,6 +12,8 @@
     "relationshipType": "Связь",
 
     "add": "Добавить",
+    "addPerson" :"Добавить человека",
+    "addRelationship": "Добавить связь",
 
     "graphPageLink": "График",
     "addPageLink": "Добавить людей"

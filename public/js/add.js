@@ -10,6 +10,7 @@ const relSuggestions = document.getElementById("relSuggestions");
 const relTypeSelect = document.getElementById("relType");
 const pendingList = document.getElementById("pendingList");
 
+
 // ------------------------------------------------------------
 // AUTOCOMPLEETE
 // ------------------------------------------------------------
@@ -153,6 +154,27 @@ function renderPendingRelationship(rel, id) {
 // RELATIONSHIP MODIFICATION
 // ------------------------------------------------------------
 
+function addRelationshipTypeOption(t) {
+    const option = document.createElement("option");
+    option.value = t.key;
+    option.textContent = t.label;
+    return option;
+}
+
+async function loadRelationshipTypes() {
+    try {
+        const res = await fetch("/api/relationships/types");
+        const types = await res.json();
+
+        relTypeSelect.innerHTML = "";
+        types.forEach(t => {
+            relTypeSelect.appendChild(addRelationshipTypeOption(t));
+        });
+    } catch(e) {
+        console.error("loadRelationshipTypes: ", e);
+    }
+}
+
 async function createRelationship(newPerson, rel) {
     const res = await fetch("/api/relationships", {
         method: "POST",
@@ -220,9 +242,21 @@ async function addPerson() {
 // Resetting
 // ------------------------------------------------------------
 
+function clearInputFields() {
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    emailInput.value = ""; 
+    phoneInput.value = "";
+    birthdayInput.value = "";
+    relPersonInput.value = "";
+}
+
 function resetForm() {
     pendingRelationships.clear();
     renderPendingList();
     clearSelectedPerson();
-    relPersonInput.value = "";
+    clearInputFields();
 }
+
+
+loadRelationshipTypes();

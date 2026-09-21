@@ -12,6 +12,8 @@
     "relationshipType": "Relationship type",
 
     "add": "Add",
+    "addPerson" :"Add person",
+    "addRelationship": "Add relationships",
 
     "graphPageLink": "Graph",
     "addPageLink": "Add people"
