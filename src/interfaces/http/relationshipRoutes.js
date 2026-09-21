@@ -2,11 +2,13 @@ const app = require("express");
 const router = app.Router();
 
 const SqliteRelatioshipRepository = require("../../infrastructure/repositories/SqliteRelationshipRepository");
+const SqlitePersonRepository = require("../../infrastructure/repositories/SqlitePersonRepository");
 const AddRelationship = require("../../application/AddRelationship");
 const PersonRepository = require("../../domain/person/PersonRepository");
 
 const relationshipRepository = new SqliteRelatioshipRepository();
-const addRelationship = new AddRelationship(relationshipRepository, PersonRepository);
+const personRepository = new SqlitePersonRepository();
+const addRelationship = new AddRelationship(relationshipRepository, personRepository);
 
 router.get("/", (req, res) => {
     const relationships = relationshipRepository.findAll();

@@ -60,18 +60,18 @@
         </fieldset>
 
         <fieldset>
-            <label>Person</label>
+            <label data-i18n="person"></label>
             <div class="autocomplete-wrapper">
-                <input id="relPersonInput" autocomplete="off" placeholder="Start typing a name...">
-                <ul id="relSuggestions" class="suggestions" style="display:none"></ul>
+                <input id="relPersonInput" autocomplete="off">
+                <ul id="relSuggestions" class="suggestions" style="display:block"></ul>
             </div>
-            <label>Relationship type</label>
+            <label data-i18n="relationshipType"></label>
             <select id="relType">
                 <option value="friend">Friend</option>
                 <option value="family">Family</option>
                 <option value="colleague">Colleague</option>
             </select>
-            <button type="button" onclick="addPendingRelationship()">Add relationship</button>
+            <button data-i18n="add" type="button" onclick="addPendingRelationship()"></button>
         
             <ul id="pendingList" class="pending-list"></ul>
         </fieldset>
@@ -79,21 +79,6 @@
         <button data-i18n="add" onclick="addPerson()"></button>
     </div>
 
-    <script>
-        // function addPerson() {
-        //     fetch("/api/people", {
-        //         method: "POST",
-        //         headers: { "Content-Type": "application/json"},
-        //         body: JSON.stringify({
-        //             firstName: document.getElementById("firstName").value,
-        //             lastName: document.getElementById("lastName").value,
-        //             email: document.getElementById("email").value,
-        //             phone: document.getElementById("phone").value,
-        //             birthday: document.getElementById("birthday").value
-        //         })
-        //     });
-        // }
-    </script>
     <script src="/js/add.js"></script>
     <script src="/js/i18n.js"></script>
 </body>
