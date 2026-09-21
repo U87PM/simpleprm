@@ -4,29 +4,6 @@
 
 import * as d3 from "d3";
 
-/**
- * Stores information about a person node. Person properties + mutated for simulation.
- * @typedef {Object} PersonNode
- * @property {number} id                - unique person identifier
- * @property {string} firstName         - person's first name
- * @property {string} lastName          - person's last name
- * @property {string} [group]           - grouping label for person
- * @property {number} x                 - set by initNodePositions; current x position
- * @property {number} y                 - set by initNodePositions; current y position
- * @property {number} [vx]              - set by d3.forceSimulation; x velocity
- * @property {number} [vy]              - set by d3.forceSimulation; y velocity
- * @property {number|null} [fx]         - fixed x position while dragging, null when released
- * @property {number|null} [fy]         - fixed y position while dragging, null when released
- */
-
-/**
- * Stores information about a relationship.
- * @typedef {Object} RelationshipLink
- * @property {PersonNode} source        - resolved by d3.forceLink; source PersonNode object
- * @property {PersonNode} target        - resolved by d3.forceLink; target PersonNode object
- * @property {string} type              - relationship type as a key, matches RELATIONSHIP_TYPES
- */
-
 // ------------------------------------------------------------
 // Relationship type management
 // ------------------------------------------------------------
@@ -58,7 +35,7 @@ function getRelationshipType(type) {
 
 /**
  * Fetches people & relationship metadata from the server. Reshapes them into nodes and links for D3 simulation.
- * @returns {Promise<{nodes: PersonNode[], links: RelationshipLink[]}>} (contains raw source/target ids, not PersonNode objects)
+ * @returns {Promise<{nodes: module:types~PersonNode[], links: module:types~RelationshipLink[]}>} (contains raw source/target ids, not module:types~PersonNode objects)
  */
 async function fetchData() {
     const people = await (await fetch("/api/people")).json();
@@ -161,7 +138,7 @@ function updateCenterMarker(zoomLayer) {
 
 /**
  * Sets initial x/y positions for nodes: first node at center, rest arranged in a circle around it.
- * @param {PersonNode[]} nodes 
+ * @param {module:types~PersonNode[]} nodes 
  * @param {number} width 
  * @param {number} height 
  */
@@ -184,8 +161,8 @@ function initNodePositions(nodes, width, height) {
 /**
  * Binds relationship data to SVG lines and styles them. Handles arrow selection per relationship type.
  * @param {d3.Selection<SVGSVGElement, undefined, any, any>} svg 
- * @param {RelationshipLink[]} links 
- * @returns {d3.Selection<SVGGElement, RelationshipLink, SVGSVGElement, undefined>}
+ * @param {module:types~RelationshipLink[]} links 
+ * @returns {d3.Selection<SVGGElement, module:types~RelationshipLink, SVGSVGElement, undefined>}
  */
 function drawLinks(svg, links) {
     const link = svg.append("g")
@@ -210,8 +187,8 @@ function drawLinks(svg, links) {
 /**
  * Binds person data to SVG circles.
  * @param {d3.Selection<SVGSVGElement, undefined, any, any>} svg 
- * @param {PersonNode[]} nodes 
- * @returns {d3.Selection<SVGGElement, PersonNode, SVGGElement, undefined>}
+ * @param {module:types~PersonNode[]} nodes 
+ * @returns {d3.Selection<SVGGElement, module:types~PersonNode, SVGGElement, undefined>}
  */
 function drawNodes(svg, nodes) {
     //actual html elements
@@ -227,8 +204,8 @@ function drawNodes(svg, nodes) {
 /**
  * Binds person data to SVG text labels showing full name.
  * @param {d3.Selection<SVGSVGElement, undefined, any, any>} svg 
- * @param {PersonNode[]} nodes 
- * @returns {d3.Selection<SVGGElement, PersonNode, SVGGElement, undefined>}
+ * @param {module:types~PersonNode[]} nodes 
+ * @returns {d3.Selection<SVGGElement, module:types~PersonNode, SVGGElement, undefined>}
  */
 function drawLables(svg, nodes) {
     const label = svg.append("g")
@@ -248,9 +225,9 @@ function drawLables(svg, nodes) {
 
 /**
  * Builds and configures the D3 force simulation: charge, collision, root-centering, and link-range forces.
- * @param {PersonNode[]} nodes 
- * @param {RelationshipLink[]} links 
- * @returns {d3.Simulation<PersonNode, RelationshipLink>}
+ * @param {module:types~PersonNode[]} nodes 
+ * @param {module:types~RelationshipLink[]} links 
+ * @returns {d3.Simulation<module:types~PersonNode, module:types~RelationshipLink>}
  */
 function initSimulation(nodes, links) {
     const simulation = d3.forceSimulation(nodes)
@@ -282,7 +259,7 @@ function initSimulation(nodes, links) {
 
 /**
  * Creates custom force: pulls root node into viewport centre.
- * @param {PersonNode} root - root node to pull (nodes[0])
+ * @param {module:types~PersonNode} root - root node to pull (nodes[0])
  * @param {number} strength - strength to pull with
  * @returns {function|undefined} - force function for simulation.force()
  */
@@ -299,7 +276,7 @@ function rootCenterForce(root, strength) {
 
 /**
  * Creates custom force that holds links at distance [min, max] by applying forces.
- * @param {RelationshipLink[]} links 
+ * @param {module:types~RelationshipLink[]} links 
  * @param {{min: number, max: number, strength: number}} options
  * @returns {function} - force function for simulation.force()
  */
@@ -344,9 +321,9 @@ function forceLinkRange(links, { min, max, strength}) {
 
 /**
  * Update svg element positions on each tick.
- * @param {d3.Selection<SVGCircleElement, PersonNode, any, any>} node - circle selection, representing people.
- * @param {d3.Selection<SVGLineElement, RelationshipLink, any, any>} link - line selection, representing relationships.
- * @param {d3.Selection<SVGTextElement, PersonNode, any, any>} label - text selection, representing people's names.
+ * @param {d3.Selection<SVGCircleElement, module:types~PersonNode, any, any>} node - circle selection, representing people.
+ * @param {d3.Selection<SVGLineElement, module:types~RelationshipLink, any, any>} link - line selection, representing relationships.
+ * @param {d3.Selection<SVGTextElement, module:types~PersonNode, any, any>} label - text selection, representing people's names.
  */
 function tick(node, link, label) {
     node
@@ -374,7 +351,7 @@ function handleDrag(node, simulation) {
     /**
      * Handles the initiation of a drag event.
      * @param {d3.D3DragEvent} event - D3 drag event object with cursor coordinates.
-     * @param {PersonNode} draggedPerson - data object bound to the dragged node.
+     * @param {module:types~PersonNode} draggedPerson - data object bound to the dragged node.
      */
     function startDrag(event, draggedPerson) {
         simulation.alphaTarget(0.3).restart();
@@ -384,7 +361,7 @@ function handleDrag(node, simulation) {
     /**
      * Updates position coordinates as node is dragged.
      * @param {d3.D3DragEvent} event - D3 drag event object with cursor coordinates.
-     * @param {PersonNode} draggedPerson - data object bound to the dragged node.
+     * @param {module:types~PersonNode} draggedPerson - data object bound to the dragged node.
      */
     function duringDrag(event, draggedPerson) {
         draggedPerson.fx = event.x;
@@ -393,7 +370,7 @@ function handleDrag(node, simulation) {
     /**
      * On drag end, cleans up forced positions & cools down simulation.
      * @param {d3.D3DragEvent} event - D3 drag event object with cursor coordinates.
-     * @param {PersonNode} draggedPerson - data object bound to the dragged node.
+     * @param {module:types~PersonNode} draggedPerson - data object bound to the dragged node.
      */
     function stopDrag(event, draggedPerson) {
         simulation.alphaTarget(0);
@@ -414,7 +391,7 @@ function handleDrag(node, simulation) {
 /**
  * Resize SVG window on call. Recenters the marker & reheats simulation if running.
  * @param {d3.Selection<SVGSVGElement, undefined, any, any>} svg 
- * @param {d3.Simulation<PersonNode, RelationshipLink>} simulation 
+ * @param {d3.Simulation<module:types~PersonNode, module:types~RelationshipLink>} simulation 
  * @param {d3.Selection<SVGGElement, undefined, any, any>} zoomLayer 
  */
 function windowResize(svg, simulation, zoomLayer) {
@@ -432,7 +409,7 @@ function windowResize(svg, simulation, zoomLayer) {
 /**
  * Resize window dynamically on viewport change.
  * @param {d3.Selection<SVGSVGElement, undefined, any, any>} svg 
- * @param {d3.Simulation<PersonNode, RelationshipLink>} simulation 
+ * @param {d3.Simulation<module:types~PersonNode, module:types~RelationshipLink>} simulation 
  * @param {d3.Selection<SVGGElement, undefined, any, any>} zoomLayer 
  */
 function enableWindowResize(svg, simulation, zoomLayer) {
